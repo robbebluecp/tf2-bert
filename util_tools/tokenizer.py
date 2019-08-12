@@ -1,4 +1,5 @@
 import os
+from util_tools.download import Downloader
 
 
 base_dir = os.path.dirname(__file__).rsplit('/', 1)[0]
@@ -7,7 +8,8 @@ base_dir = os.path.dirname(__file__).rsplit('/', 1)[0]
 class Tokenizer:
 
     def __init__(self,
-                 file_name: str = base_dir + '/chinese_L-12_H-768_A-12/vocab.txt'):
+                 file_name: str = base_dir + '/data/chinese-bert_chinese_wwm_L-12_H-768_A-12/publish/vocab.txt'):
+        self.check_download('bert')
         self.token_dict, self.token_dict_inv = self.get_token_dict(file_name)
 
     @staticmethod
@@ -22,6 +24,10 @@ class Tokenizer:
             f.close()
         token_dict_inv = {token_dict[key]: key for key in token_dict}
         return token_dict, token_dict_inv
+
+    @staticmethod
+    def check_download(name: str = 'bert'):
+        Downloader()(name)
 
     def tokenize(self, text, sencond_text=None):
         return [x + [0] * (512 - len(x)) for x in self.make_vectors(text, sencond_text)]
