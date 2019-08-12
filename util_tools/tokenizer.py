@@ -1,8 +1,8 @@
 import os
-from util_tools.download import Downloader
+from keras_bert.util_tools.download import Downloader
 
 
-base_dir = os.path.dirname(__file__).rsplit('/', 1)[0]
+base_dir = os.getcwd()
 
 
 class Tokenizer:
@@ -27,7 +27,7 @@ class Tokenizer:
 
     @staticmethod
     def check_download(name: str = 'bert'):
-        Downloader()(name)
+        Downloader(1)(name)
 
     def tokenize(self, text, sencond_text=None):
         return [x + [0] * (512 - len(x)) for x in self.make_vectors(text, sencond_text)]

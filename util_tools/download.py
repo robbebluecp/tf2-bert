@@ -4,7 +4,7 @@ import ssl
 import zipfile
 import urllib.error
 
-base_dir = os.path.dirname(__file__).rsplit('/', 1)[0]
+base_dir = os.getcwd()
 
 class Downloader:
 
@@ -34,8 +34,12 @@ class Downloader:
         zip_file.extractall(path=dir + file_name.split('.')[0])
 
     @staticmethod
-    def file_checker(file_name: str):
-        return True if os.path.exists(file_name) else False
+    def file_checker(file_path: str):
+        if os.path.isfile(file_path):
+            return True
+        else:
+            os.makedirs(os.path.dirname(file_path))
+        return False
 
     @staticmethod
     def dir_checker(dir_name: str):

@@ -1,10 +1,10 @@
-from models import *
+from keras_bert.models import *
 import tensorflow as tf
 import json
 import os
 
 
-base_dir = os.path.dirname(__file__).rsplit('/', 1)[0]
+base_dir = os.getcwd()
 ckpt_file = base_dir + '/data/chinese-bert_chinese_wwm_L-12_H-768_A-12/publish/bert_model.ckpt'
 config_file = base_dir + '/data/chinese-bert_chinese_wwm_L-12_H-768_A-12/publish/bert_config.json'
 
