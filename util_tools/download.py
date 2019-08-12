@@ -6,18 +6,18 @@ import urllib.error
 
 base_dir = os.path.dirname(__file__).rsplit('/', 1)[0]
 
-
 class Downloader:
 
     def __init__(self,
-                 mode: int = 1):
+                 mode: int = 0):
         self.mode = mode
         self.base_dir = base_dir + '/data/'
 
+
     @staticmethod
-    def bar(current, total, width):
+    def bar(current, total, width, s=set()):
         num = int(current / total * 100)
-        if num % 1 == 0:
+        if num % 1 == 0 and num not in s:
             print('Downloadng: %d%% [%d / %d] bytes ' % (num, current, total))
 
     @staticmethod
@@ -40,7 +40,7 @@ class Downloader:
     @staticmethod
     def dir_checker(dir_name: str):
         if dir_name.find('.') >= 0:
-            dir_name = dir_name.rsplit('.', 1)[0]
+            dir_name = dir_name.rsplit('.', -1)[0]
         if os.path.isdir(dir_name):
             return True
         else:
@@ -50,6 +50,12 @@ class Downloader:
     def distribute_task(self, name):
         if name == 'bert':
             self.download_bert_weights()
+
+    def download_test(self, file_name='soe2.csv.zip'):
+        if not self.file_checker(self.base_dir + file_name):
+            self.download('https://ldh-tmp.oss-cn-beijing.aliyuncs.com/soe2.csv.zip', self.base_dir, self.bar)
+        if not self.dir_checker(self.base_dir + file_name):
+            self.unzip(self.base_dir, file_name)
 
     def download_bert_weights(self, file_name='chinese-bert_chinese_wwm_L-12_H-768_A-12.zip'):
         if self.mode == 0:
@@ -67,7 +73,6 @@ class Downloader:
     def __call__(self, name, *args, **kwargs):
         return self.distribute_task(name)
 
-
 if __name__ == '__main__':
     d = Downloader()
-    d('bert')
+    d('test')
