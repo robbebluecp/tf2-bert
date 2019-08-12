@@ -74,6 +74,9 @@ class Downloader:
             if not self.dir_checker(self.base_dir + file_name):
                 self.unzip(self.base_dir, file_name)
 
+    def download_hotel_comments(self, file_name=''):
+        pass
+
     def __call__(self, name, *args, **kwargs):
         return self.distribute_task(name)
 
