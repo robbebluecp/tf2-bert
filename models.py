@@ -3,11 +3,6 @@ import keras
 import tensorflow as tf
 from keras.utils import get_custom_objects
 
-"""
-
-source from : https://github.com/CyberZHG/keras-bert
-
-"""
 
 default_weights_initializer = keras.initializers.get('glorot_normal')
 default_bias_initializer = keras.initializers.get('zeros')
