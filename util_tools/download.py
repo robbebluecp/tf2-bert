@@ -18,6 +18,7 @@ class Downloader:
     def bar(current, total, width, s=set()):
         num = int(current / total * 100)
         if num % 1 == 0 and num not in s:
+            s.add(num)
             print('Downloadng: %d%% [%d / %d] bytes ' % (num, current, total))
 
     @staticmethod
