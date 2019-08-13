@@ -26,8 +26,8 @@ class Tokenizer:
         return token_dict, token_dict_inv
 
     @staticmethod
-    def check_download(name: str = 'bert'):
-        Downloader(1)(name)
+    def check_download(mode: int=1, name: str = 'bert'):
+        Downloader(mode)(name)
 
     def tokenize(self, text, sencond_text=None):
         return [x + [0] * (512 - len(x)) for x in self.make_vectors(text, sencond_text)]

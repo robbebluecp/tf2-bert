@@ -38,7 +38,8 @@ class Downloader:
         if os.path.isfile(file_path):
             return True
         else:
-            os.makedirs(os.path.dirname(file_path))
+            if not os.path.exists(os.path.dirname(file_path)):
+                os.makedirs(os.path.dirname(file_path))
         return False
 
     @staticmethod
@@ -54,12 +55,8 @@ class Downloader:
     def distribute_task(self, name):
         if name == 'bert':
             self.download_bert_weights()
-
-    def download_test(self, file_name='soe2.csv.zip'):
-        if not self.file_checker(self.base_dir + file_name):
-            self.download('https://ldh-tmp.oss-cn-beijing.aliyuncs.com/soe2.csv.zip', self.base_dir, self.bar)
-        if not self.dir_checker(self.base_dir + file_name):
-            self.unzip(self.base_dir, file_name)
+        if name == 'hotel_comments':
+            self.download_hotel_comments()
 
     def download_bert_weights(self, file_name='chinese-bert_chinese_wwm_L-12_H-768_A-12.zip'):
         if self.mode == 0:
@@ -74,12 +71,11 @@ class Downloader:
             if not self.dir_checker(self.base_dir + file_name):
                 self.unzip(self.base_dir, file_name)
 
-    def download_hotel_comments(self, file_name=''):
-        pass
+    def download_hotel_comments(self, file_name='hotel_comments.zip'):
+        if not self.file_checker(self.base_dir + file_name):
+            self.download('https://lzy-public-data.oss-cn-beijing.aliyuncs.com/hotel_comments.zip', self.base_dir, self.bar)
+        if not self.dir_checker(self.base_dir + file_name):
+            self.unzip(self.base_dir, file_name)
 
     def __call__(self, name, *args, **kwargs):
         return self.distribute_task(name)
-
-if __name__ == '__main__':
-    d = Downloader()
-    d('test')
