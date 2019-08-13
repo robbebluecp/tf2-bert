@@ -17,6 +17,7 @@ def custom_config():
         'LayerNormalization': LayerNormalization,
         'FeedForward': FeedForward,
         'Masked': Masked,
+        'Extract': Extract,
         'gelu': gelu
     }
 
