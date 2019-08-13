@@ -32,7 +32,10 @@ class Downloader:
     @staticmethod
     def unzip(dir, file_name):
         zip_file = zipfile.ZipFile(dir + file_name)
-        zip_file.extractall(path=dir + file_name.split('.')[0])
+        if file_name in {'chinese_L-12_H-768_A-12.zip'}:
+            zip_file.extractall(path=dir)
+        else:
+            zip_file.extractall(path=dir + file_name.split('.')[0])
 
     @staticmethod
     def file_checker(file_path: str):
@@ -59,7 +62,7 @@ class Downloader:
         if name == 'hotel_comments':
             self.download_hotel_comments()
 
-    def download_bert_weights(self, file_name='chinese-bert_chinese_wwm_L-12_H-768_A-12.zip'):
+    def download_bert_weights(self, file_name='chinese_L-12_H-768_A-12.zip'):
         if self.mode == 0:
             if not self.file_checker(self.base_dir + file_name):
                 self.download('https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip', self.base_dir, self.bar)
@@ -68,7 +71,7 @@ class Downloader:
 
         elif self.mode == 1:
             if not self.file_checker(self.base_dir + file_name):
-                self.download('https://lzy-public-data.oss-cn-beijing.aliyuncs.com/chinese-bert_chinese_wwm_L-12_H-768_A-12.zip', self.base_dir, self.bar)
+                self.download('https://lzy-public-data.oss-cn-beijing.aliyuncs.com/chinese_L-12_H-768_A-12.zip', self.base_dir, self.bar)
             if not self.dir_checker(self.base_dir + file_name):
                 self.unzip(self.base_dir, file_name)
 

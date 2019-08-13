@@ -8,8 +8,8 @@ base_dir = os.getcwd()
 class Tokenizer:
 
     def __init__(self,
-                 file_name: str = base_dir + '/data/chinese-bert_chinese_wwm_L-12_H-768_A-12/publish/vocab.txt'):
-        self.check_download('bert')
+                 file_name: str = base_dir + '/data/chinese_L-12_H-768_A-12/vocab.txt'):
+        self.check_download(name='bert')
         self.token_dict, self.token_dict_inv = self.get_token_dict(file_name)
 
     @staticmethod
@@ -27,7 +27,7 @@ class Tokenizer:
 
     @staticmethod
     def check_download(mode: int=1, name: str = 'bert'):
-        Downloader(mode)(name)
+        Downloader(mode=mode)(name)
 
     def tokenize(self, text, sencond_text=None):
         return [x + [0] * (512 - len(x)) for x in self.make_vectors(text, sencond_text)]

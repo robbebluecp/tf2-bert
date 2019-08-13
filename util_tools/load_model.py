@@ -5,8 +5,8 @@ import os
 
 
 base_dir = os.getcwd()
-ckpt_file = base_dir + '/data/chinese-bert_chinese_wwm_L-12_H-768_A-12/publish/bert_model.ckpt'
-config_file = base_dir + '/data/chinese-bert_chinese_wwm_L-12_H-768_A-12/publish/bert_config.json'
+ckpt_file = base_dir + '/data/chinese_L-12_H-768_A-12/bert_model.ckpt'
+config_file = base_dir + '/data/chinese_L-12_H-768_A-12/bert_config.json'
 
 
 def get_config():

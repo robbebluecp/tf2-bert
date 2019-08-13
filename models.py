@@ -43,7 +43,7 @@ class TokenEmbedding(Embedding):
         return [super(TokenEmbedding, self).compute_output_shape(input_shape), (self.input_dim, self.output_dim)]
 
     def compute_mask(self, inputs, mask=None):
-        return super(TokenEmbedding, self).compute_mask(inputs, mask)
+        return [super(TokenEmbedding, self).compute_mask(inputs, mask), None]
 
     def call(self, inputs):
         return [super(TokenEmbedding, self).call(inputs), K.identity(self.embeddings)]
