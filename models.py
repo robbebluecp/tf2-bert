@@ -95,11 +95,11 @@ class PositionEmbedding(Layer):
 
     def call(self, inputs, **kwargs):
         input_shape = K.shape(inputs)
-        N = input_shape[0]
+        N, max_len = input_shape[0], input_shape[1]
 
         # [N, max_len, emb_dim]
         pos_embeddings = K.tile(
-            K.expand_dims(self.position_weights, axis=0),
+            K.expand_dims(self.position_weights[:max_len, :], axis=0),
             [N, 1, 1],
         )
         return inputs + pos_embeddings

@@ -16,12 +16,12 @@ def get_config():
     return config
 
 
-def get_models(base=True):
+def get_models(base=False, max_len=512):
     config = get_config()
     # embedding vocab size
     vocab_size = config['vocab_size']  # 21128
     # max length each sentence
-    max_len = config['max_position_embeddings']  # 512
+    max_len = min(config['max_position_embeddings'], max_len)  # 512
     # embedding output_dim
     emb_dim = config['hidden_size']  # 768
     #
@@ -75,7 +75,7 @@ def get_models(base=True):
     # [N, max_len, emb_dim]
     base_layer = forward_ln_ayer
 
-    if base:
+    if not base:
         # reg
         if 1:
             reg_dense_layer = Dense(hid_dim_reg, name='Reg-Dense', activation='gelu')(base_layer)
@@ -103,7 +103,7 @@ def get_models(base=True):
 
 def get_weights(model,
                 ckpt_file_name=ckpt_file,
-                base=True):
+                base=False):
     """
 
     load weights from official weights files
@@ -157,7 +157,7 @@ def get_weights(model,
             loader('bert/encoder/layer_%s/output/LayerNorm/gamma' % i),
             loader('bert/encoder/layer_%s/output/LayerNorm/beta' % i),
         ])
-    if base:
+    if not base:
         model.get_layer(name='Reg-Dense').set_weights([
             loader('cls/predictions/transform/dense/kernel'),
             loader('cls/predictions/transform/dense/bias'),

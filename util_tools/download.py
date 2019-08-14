@@ -65,18 +65,21 @@ class Downloader:
     def download_bert_weights(self, file_name='chinese_L-12_H-768_A-12.zip'):
         if self.mode == 0:
             if not self.file_checker(self.base_dir + file_name):
+                print('prepare to donwload bert ')
                 self.download('https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip', self.base_dir, self.bar)
             if not self.dir_checker(self.base_dir + file_name):
                 self.unzip(self.base_dir, file_name)
 
         elif self.mode == 1:
             if not self.file_checker(self.base_dir + file_name):
+                print('prepare to donwload bert ')
                 self.download('https://lzy-public-data.oss-cn-beijing.aliyuncs.com/chinese_L-12_H-768_A-12.zip', self.base_dir, self.bar)
             if not self.dir_checker(self.base_dir + file_name):
                 self.unzip(self.base_dir, file_name)
 
     def download_hotel_comments(self, file_name='hotel_comments.zip'):
         if not self.file_checker(self.base_dir + file_name):
+            print('prepare to donwload hotel comments ')
             self.download('https://lzy-public-data.oss-cn-beijing.aliyuncs.com/hotel_comments.zip', self.base_dir, self.bar)
         if not self.dir_checker(self.base_dir + file_name):
             self.unzip(self.base_dir, file_name)
