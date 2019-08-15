@@ -32,7 +32,7 @@ class Tokenizer:
         Downloader(mode=mode)(name)
 
     def tokenize(self, text, sencond_text=None, max_len=512):
-        return [x + [0] * (max_len - len(x)) for x in self.make_vectors(text, sencond_text, max_len)]
+        return [[0] * (max_len - len(x)) + x for x in self.make_vectors(text, sencond_text, max_len)]
 
 
     def make_vectors(self, text, sencond_text=None, max_len=512):
