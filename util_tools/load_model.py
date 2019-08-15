@@ -103,12 +103,14 @@ def get_models(base=False, max_len=512):
 
 def get_weights(model,
                 ckpt_file_name=ckpt_file,
-                base=False):
+                base=False,
+                max_len=512):
     """
 
     load weights from official weights files
 
     """
+    config = get_config()
 
     def ckpt_opener(ckpt_file):
         return lambda x: tf.train.load_variable(ckpt_file, x)
@@ -124,14 +126,13 @@ def get_weights(model,
     ])
 
     model.get_layer(name='Embedding-Position').set_weights([
-        loader('bert/embeddings/position_embeddings'),
+        loader('bert/embeddings/position_embeddings')[:min(max_len, config['max_position_embeddings']), :],
     ])
 
     model.get_layer(name='Embedding-LayerNorm').set_weights([
         loader('bert/embeddings/LayerNorm/gamma'),
         loader('bert/embeddings/LayerNorm/beta'),
     ])
-    config = get_config()
     for i in range(config['num_hidden_layers']):
         model.get_layer(name='MultiHeadSelfAttention-%s' % i).set_weights([
             loader('bert/encoder/layer_%s/attention/self/query/kernel' % i),
