@@ -96,7 +96,7 @@ def get_models(base=False, max_len=512):
 
     else:
         # base layer
-        model = keras.models.Model(inputs=inputs, outputs=base_layer)
+        model = keras.models.Model(inputs=inputs[:2], outputs=base_layer)
 
     return model
 
