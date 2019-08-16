@@ -2,6 +2,7 @@ from keras.layers import *
 import keras
 import tensorflow as tf
 from keras.utils import get_custom_objects
+from tensorflow.python.ops.math_ops import erf, sqrt
 
 
 default_weights_initializer = keras.initializers.get('glorot_normal')
@@ -23,13 +24,14 @@ def custom_config():
 
 
 def gelu(x):
+    return 0.5 * x * (1.0 + erf(x / sqrt(2.0)))
     # from Google bert gule
-    y = 0.5 * x * (1.0 + tf.tanh(
-        (
-                np.sqrt(2 / np.pi) * (x + 0.044715 * tf.pow(x, 3))
-        )
-    ))
-    return y
+    # y = 0.5 * x * (1.0 + tf.tanh(
+    #     (
+    #             np.sqrt(2 / np.pi) * (x + 0.044715 * tf.pow(x, 3))
+    #     )
+    # ))
+    # return y
 
 
 class TokenEmbedding(Embedding):
