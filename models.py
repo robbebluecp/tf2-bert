@@ -265,20 +265,19 @@ class ScaleDotProducttion:
     def reshape_to_attention_shape(x,
                                    n_head: int):
 
-        input_shape = K.shape(x)
-        batch_size, seq_len, feature_dim = input_shape[0], input_shape[1], input_shape[2]
-        head_dim = feature_dim // n_head
-        x = K.reshape(x, (batch_size, seq_len, n_head, head_dim))
-        x = K.permute_dimensions(x, [0, 2, 1, 3])
-        return K.reshape(x, (batch_size * n_head, seq_len, head_dim))
         """
 
         from raw shape([N, max_len, emb_dim]) reshape to mutil head shape ([N*n_head, max_len, emb_dim / n_head])
 
         """
+        input_shape = K.shape(x)
+        N, max_len, emb_dim = input_shape[0], input_shape[1], input_shape[2]
         x = tf.split(x, n_head, -1)
         x = K.concatenate(x, axis=0)
-        return x
+        x = K.reshape(x, (n_head, N, max_len, emb_dim // n_head))
+        x = K.permute_dimensions(x, (1, 0, 2, 3))
+        y = K.reshape(x, (-1, max_len, emb_dim // n_head))
+        return yy
 
     @staticmethod
     def reshape_from_attention_shape(x,
