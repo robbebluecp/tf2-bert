@@ -277,7 +277,7 @@ class ScaleDotProducttion:
         x = K.reshape(x, (n_head, N, max_len, emb_dim // n_head))
         x = K.permute_dimensions(x, (1, 0, 2, 3))
         y = K.reshape(x, (-1, max_len, emb_dim // n_head))
-        return yy
+        return y
 
     @staticmethod
     def reshape_from_attention_shape(x,
