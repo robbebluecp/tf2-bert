@@ -2,6 +2,7 @@ from keras_bert.models import *
 import tensorflow as tf
 import json
 import os
+import numpy as np
 
 
 base_dir = os.getcwd()

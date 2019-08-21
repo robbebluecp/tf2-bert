@@ -124,7 +124,6 @@ class MultiHeadAttention(Layer):
         """
         self.supports_masking = True
         self.n_head = n_head
-        self.actication = keras.activations.get('gelu')
         super(MultiHeadAttention, self).__init__(**kwargs)
 
     def get_config(self):
@@ -209,17 +208,12 @@ class MultiHeadAttention(Layer):
         k += self.bk
         v += self.bv
 
-        q = self.actication(q)
-        k = self.actication(k)
-        v = self.actication(v)
-
         # scale dot product
         y = ScaleDotProducttion()([q, k, v], [q_mask, k_mask, v_mask], self.n_head)
 
         y = ScaleDotProducttion.reshape_from_attention_shape(y, self.n_head)
         y = K.dot(y, self.wo)
         y += self.bo
-        y = self.actication(y)
 
         return y
 
