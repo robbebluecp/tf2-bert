@@ -794,7 +794,7 @@ class Extract(Layer):
 
     """
 
-    def __init__(self, index, **kwargs):
+    def __init__(self, index=0, **kwargs):
         super(Extract, self).__init__(**kwargs)
         self.index = index
         self.supports_masking = True

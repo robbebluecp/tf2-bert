@@ -89,11 +89,11 @@ def get_models(base=False, max_len=512):
         if 1:
             # base_layer = [N, max_len, emb_dim]
             # [N, emb_dim]
-            extract_layer = Extract(index=0, name='Extract')(base_layer)
-            nsp_dense_layer = Dense(hid_dim_cls, name='Cls-Dense', activation='tanh')(extract_layer)
-            nsp_pred_layer = Dense(units=2, activation='softmax', name='Cls')(nsp_dense_layer)
+            extract_layer = Extract(name='Extract')(base_layer)
+            cls_dense_layer = Dense(hid_dim_cls, name='Cls-Dense', activation='tanh')(extract_layer)
+            cls_pred_layer = Dense(units=2, activation='softmax', name='Cls')(cls_dense_layer)
 
-        model = keras.models.Model(inputs=inputs, outputs=[masked_layer, nsp_pred_layer])
+        model = keras.models.Model(inputs=inputs, outputs=[masked_layer, cls_pred_layer])
 
     else:
         # base layer
