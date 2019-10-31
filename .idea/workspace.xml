@@ -11,11 +11,11 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/data/READMD.MD">
+        <entry file="file://$PROJECT_DIR$/README.MD">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor>
-                <caret column="25" selection-start-column="25" selection-end-column="25" />
+              <first_editor relative-caret-position="90">
+                <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
               </first_editor>
               <second_editor />
             </state>
@@ -35,10 +35,14 @@
     <findStrings>
       <find>,</find>
       <find>ssl</find>
+      <find>tokenization</find>
     </findStrings>
     <replaceStrings>
       <replace>，</replace>
     </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,6 +62,7 @@
         <option value="$PROJECT_DIR$/util_tools/load_model.py" />
         <option value="$PROJECT_DIR$/util_tools/download.py" />
         <option value="$PROJECT_DIR$/data/READMD.MD" />
+        <option value="$PROJECT_DIR$/README.MD" />
       </list>
     </option>
   </component>
@@ -81,6 +86,11 @@
               <item name="keras-bert-core" type="b2602c69:ProjectViewProjectNode" />
               <item name="keras-bert-core" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="keras-bert-core" type="b2602c69:ProjectViewProjectNode" />
+              <item name="keras-bert-core" type="462c0819:PsiDirectoryNode" />
+              <item name="keras-bert" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -255,12 +265,12 @@
       <workItem from="1565607757847" duration="332000" />
       <workItem from="1565608589901" duration="2770000" />
       <workItem from="1565923880028" duration="35000" />
-      <workItem from="1572485047361" duration="109000" />
+      <workItem from="1572485047361" duration="261000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14858000" />
+    <option name="totallyTimeSpent" value="15010000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -306,16 +316,6 @@
     <entry file="file://$USER_HOME$/urllib/request.py" />
     <entry file="file://$USER_HOME$/zipfile.py" />
     <entry file="file://$PROJECT_DIR$/../wget.py" />
-    <entry file="file://$PROJECT_DIR$/README.MD">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="165">
-            <caret line="11" column="130" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="130" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../keras-bert-projects/demo_extract_sentence_vector.py" />
     <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/690644531/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -342,7 +342,31 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor>
-            <caret column="25" selection-start-column="25" selection-end-column="25" />
+            <caret column="3" selection-start-column="3" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keras-bert/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keras-bert/model.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.MD">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="90">
+            <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
           </first_editor>
           <second_editor />
         </state>

@@ -3,9 +3,8 @@
 两个repo的源码对bert实行更进一步的、更接近人类的封装，附加几个demo和task代码
 
 ### 2、HOW TO USE
-（1）pip3 install keras-bert-core 然后 import keras_bert
-（2）download或者clone这个repo到你的电脑
-（3）运行各个demo或者task，over
+（1）download或者clone这个repo到你的电脑
+（2）运行各个demo或者task，over
 
 ### 3、HOW TO DIY
 step to [https://github.com/yfyvan/keras-bert](https://github.com/yfyvan/keras-bert)
