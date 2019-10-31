@@ -7,6 +7,6 @@
 （2）运行各个demo或者task，over
 
 ### 3、HOW TO DIY
-step to [https://github.com/yfyvan/keras-bert](https://github.com/yfyvan/keras-bert)
+step to [https://github.com/yfyvan/keras-bert-core](https://github.com/yfyvan/keras-bert)
 
 ### 4、欢迎任何DL相关骚扰
