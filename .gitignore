@@ -5,3 +5,7 @@
 *.iml
 *.h5
 *.txt
+
+*.xml
+data/data_ner/.DS_Store
+data/date_comment/.DS_Store

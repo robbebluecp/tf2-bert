@@ -1,11 +1,14 @@
 """
 
-新闻NER
+NER
 
 """
 from tensorflow import keras
 import models
 from tensorflow.keras import backend as K
+import re
+from tools import tokenizer
+import numpy as np
 
 
 with open('data/data_ner/train.txt', 'r') as f:
@@ -22,9 +25,6 @@ items = text.split('\n\n')
 token_inputs = []
 segment_inputs = []
 y = []
-
-from tools import tokenizer
-import numpy as np
 
 T = tokenizer.Tokenizer()
 dic = T.token_dict
@@ -55,7 +55,7 @@ x = cc(x)
 model = keras.models.Model([in1, in2], x)
 
 # train
-if 0:
+if 1:
     for layer in model.layers:
         layer.trainable = True
 
@@ -73,21 +73,42 @@ if 0:
 
 # test
 if 1:
-    model.load_weights('model_train/nert_ep002_loss0.348.h5')
+    model.load_weights('model_train/ner_final.h5')
 
-    sentence = '张三李四和王五都在广东中国人寿上班班'
+    sentence = '尼古拉斯·凯奇在冰岛的国家税务局里面拍戏'
     token_words, token_array, segment_array, mask_array = T.tokenize(sentence, max_len=max_len)
     token_array = np.asarray([token_array])
     segment_array = np.asarray([segment_array])
     p = model.predict([token_array, segment_array])[0]
     pp = np.argmax(p, -1)
-    print(pp)
 
     def decode(sentence, array, label_dict, type='bert'):
         if type == 'bert':
             array = array[1:len(sentence)]
-        label_dict_inv = {label_dict[key]: key for key in label_dict}
+        label_ints_dic = {}
+        for key in label_dict:
+            if key == 'O':
+                continue
+            name = key.split('-')[-1]
+            if name not in label_ints_dic:
+                label_ints_dic[name] = ''
+            label_ints_dic[name] += str(label_dict[key])
 
+        label_ints_dic_rever = {label_ints_dic[key]: key for key in label_ints_dic}
+        array_str = list(map(str, array))
+        array_str = ''.join(array_str)
 
+        result = {}
+        for i in label_ints_dic_rever:
+            re_iter = re.finditer('(%s+)' % i, array_str)
+            des = label_ints_dic_rever[i]
+            if des not in result:
+                result[des] = []
+            for j in re_iter:
+                result[des].append(sentence[j.start(): j.end()])
 
-
+        for i in result:
+            if result[i]:
+                print(i, ':', *result[i])
+        return result
+    decode(sentence, pp, label_dict)
