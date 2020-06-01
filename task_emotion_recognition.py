@@ -5,22 +5,15 @@
 
 """
 
-
-
-import os
-from keras_bert.util_tools import *
+import models
 import numpy as np
-import keras
+from tensorflow import keras
+from tools import tokenizer
 
 
+T = tokenizer.Tokenizer()
 
-
-base_dir = os.getcwd()
-T = tokenizer.Tokenizer(type='cls')
-d = download.Downloader()
-d.distribute_task('hotel_comments')
-
-with open(base_dir + '/data/hotel_comments/hotel_comments.txt', 'r', encoding='gbk') as f:
+with open('data/date_comment/train.txt', 'r', encoding='utf8') as f:
     items = f.readlines()
     labels = []
     sentences = []
@@ -37,7 +30,7 @@ mask_input = []
 for text in sentences:
     if len(text) > 512:
         text = text[:510]
-    _, token_array, segment_array, mask_array = T.tokenize(text, max_len=100)
+    _, token_array, segment_array, mask_array = T.tokenize(text)
     token_input.append(token_array)
     segment_input.append(segment_array)
     mask_input.append(mask_array)
@@ -48,18 +41,12 @@ segment_input = np.asarray(segment_input)
 mask_input = np.asarray(mask_input)
 labels = np.asarray(labels, dtype=np.int)
 
-#
-#
-#
-sample_num = list(range(2000)) + list(range(len(token_input)))[-2000:]
-sample_num = np.asarray(sample_num, int)
 
 
 in1_ = keras.layers.Input((None, ))
 in2_ = keras.layers.Input((None, ))
 
-base_model = load_model.get_models(max_len=100)
-load_model.get_weights(base_model, max_len=100)
+base_model = models.BERT()()
 
 
 x = keras.models.Model(base_model.inputs[:2], base_model.get_layer('Extract').output)([in1_, in2_])
@@ -69,9 +56,22 @@ for layer in model.layers:
     layer.trainable = True
 
 
-model.compile(optimizer=keras.optimizers.Adam(5e-5), loss=keras.losses.binary_crossentropy, metrics=['acc'])
-model.fit(x=[token_input[sample_num], segment_input[sample_num]],
-          y=labels[sample_num], validation_split=0.1, epochs=5, batch_size=8)
+tensorboard = keras.callbacks.TensorBoard()
+checkpoint = keras.callbacks.ModelCheckpoint(filepath='model_train/ep{epoch:03d}-loss{loss:.3f}.h5',
+                                             monitor='val_loss',
+                                             save_weights_only=False,
+                                             save_best_only=True,
+                                             period=1)
+early_stopping = keras.callbacks.EarlyStopping(monitor='loss', min_delta=0, patience=3, verbose=1)
+
+model.compile(optimizer=keras.optimizers.Adam(5e-5), loss=keras.losses.binary_crossentropy, metrics=['loss', 'acc'])
+
+
+model.fit(x=[token_input, segment_input],
+          y=labels, validation_split=0.1, epochs=5, batch_size=16,
+          callbacks=[checkpoint, early_stopping])
+
+model.save_weights('demo_comment.weights')
 
 # text = '标准间太差 房间还不如3星的 而且设施非常陈旧.建议酒店把老的标准间从新改善.'
 # _, token_array, segment_array, mask_array = T.tokenize(text, max_len=128)
